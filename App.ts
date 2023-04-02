@@ -9,15 +9,14 @@ export const AppConfig = (app: Application) => {
     .use(express.json())
     .use(cors())
     .use(morgan("dev"))
-
+    .get("/", (req: Request, res: Response) => {
+      res.status(201).json({
+        message: "Server is up and running",
+      });
+    })
     .all("*", (req: Request, res: Response) => {
       res.status(404).json({
         message: `routes not found ${req.originalUrl}`,
       });
     })
-    .get("/", (req: Request, res: Response) => {
-      res.status(201).json({
-        message: "Server is up and running",
-      });
-    });
 };
